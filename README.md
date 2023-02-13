@@ -17,7 +17,7 @@
 ##### Query Parameters
   > | name      |  required     | data type               | description                                                           |
   > |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
-  > | from      |  true | Number   | Query messages from the timestamp  |
+  > | from      |  true | Number   | Query messages start from timestamp  |
 
 ##### Response
 ###### - <a href="https://developers.line.biz/en/reference/messaging-api/#message-event">Please refer to the official documentation of line</a>
