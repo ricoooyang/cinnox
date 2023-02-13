@@ -23,8 +23,6 @@ dependencies {
 	implementation "org.springframework.data:spring-data-mongodb:4.0.0"
 
 	implementation group: 'com.linecorp.bot', name: 'line-bot-api-client', version: '6.0.0'
-
-	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

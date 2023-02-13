@@ -1,7 +1,9 @@
 package cinnox;
 
+import cinnox.filter.WebhookEventFilter;
 import com.linecorp.bot.client.LineBlobClient;
 import com.linecorp.bot.client.LineMessagingClient;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,6 +22,15 @@ public class LineMessageConfig {
     @Bean
     public LineBlobClient lineBlobClient() throws Exception {
         return LineBlobClient.builder(CHANNEL_ACCESS_TOKEN).build();
+    }
+
+    @Bean
+    public FilterRegistrationBean<WebhookEventFilter> loggingFilter() {
+        FilterRegistrationBean<WebhookEventFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new WebhookEventFilter());
+        registrationBean.addUrlPatterns("/webhook-event");
+        registrationBean.setOrder(1);
+        return registrationBean;
     }
 
 }
