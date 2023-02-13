@@ -6,6 +6,8 @@ import cinnox.message.repository.EventRepository;
 import com.linecorp.bot.client.LineBlobClient;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.MessageContentResponse;
+import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.message.TextMessage;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -34,9 +36,13 @@ public class MessageService {
 
     public UserMessages userMessages(String userId, Long from) {
         UserMessages userMessages = new UserMessages();
-        userMessages.messages = eventRepository.findEvents(userId, from, 30).stream()
+        userMessages.messages = eventRepository.findMessageEvents(userId, from, 30).stream()
             .map(event -> event.message).collect(Collectors.toList());
         return userMessages;
+    }
+
+    public void pushMessage(String userId, cinnox.message.model.PushMessage message) {
+        lineMessagingClient.pushMessage(new PushMessage(userId, new TextMessage(message.message)));
     }
 
     public byte[] messageContent(String messageId) throws InterruptedException, ExecutionException, TimeoutException, IOException {

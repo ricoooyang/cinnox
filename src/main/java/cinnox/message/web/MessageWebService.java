@@ -1,5 +1,6 @@
 package cinnox.message.web;
 
+import cinnox.message.model.PushMessage;
 import cinnox.message.model.UserMessages;
 import cinnox.message.model.WebhookEvent;
 import cinnox.message.service.MessageService;
@@ -29,8 +30,15 @@ public class MessageWebService {
     }
 
     @GetMapping("/user/{userId}/message")
-    public UserMessages userMessages(@PathVariable("userId") String userId, @RequestParam("from") Long from) {
+    public UserMessages userMessages(@PathVariable("userId") String userId,
+                                     @RequestParam("from") Long from) {
         return messageService.userMessages(userId, from);
+    }
+
+    @PostMapping("/user/{userId}/message")
+    public void pushMessage(@PathVariable("userId") String userId,
+                            @RequestBody PushMessage message) {
+        messageService.pushMessage(userId, message);
     }
 
     @GetMapping(value = "/message/{messageId}/content", produces = MediaType.APPLICATION_CBOR_VALUE)

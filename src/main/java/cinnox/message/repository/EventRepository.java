@@ -13,5 +13,5 @@ public interface EventRepository extends MongoRepository<Event, String> {
         "{ $limit : ?2}"
     }
     )
-    List<Event> findEvents(String userId, Long timestamp, int limit);
+    List<Event> findMessageEvents(String userId, Long timestamp, int limit);
 }
